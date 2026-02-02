@@ -1,17 +1,17 @@
 /* Root Variables - Professional Color Palette */
 :root {
     /* Brand colors - Updated warm professional palette */
-    --brand-primary: #2c5f7c;      /* Deep teal blue */
-    --brand-secondary: #d97706;     /* Warm amber */
-    --brand-accent: #059669;        /* Fresh green */
-    --brand-dark: #1e293b;          /* Slate dark */
-    --brand-gray: #64748b;          /* Slate gray */
+    --brand-primary: #2c5f7c;      
+    --brand-secondary: #d97706;     
+    --brand-accent: #059669;       
+    --brand-dark: #1e293b;          
+    --brand-gray: #64748b;          
     
     /* Background colors */
-    --bg-cream: #faf8f5;            /* Warm cream */
-    --bg-off-white: #f8fafc;        /* Soft off-white */
-    --bg-white: #ffffff;            /* Pure white */
-    --bg-light-teal: #e0f2f7;       /* Light teal accent */
+    --bg-cream: #faf8f5;            
+    --bg-off-white: #f8fafc;        
+    --bg-white: #ffffff;           
+    --bg-light-teal: #e0f2f7;      
     
     /* UI colors */
     --border-light: #e2e8f0;
@@ -930,7 +930,6 @@ footer {
 }
 
 .social-links a:hover {
-    background: rgba(217, 119, 6, 0.1);
     transform: scale(1.1);
 }
 
