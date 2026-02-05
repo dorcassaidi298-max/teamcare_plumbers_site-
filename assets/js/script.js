@@ -5,7 +5,18 @@
 
     function closeNavs(){
         document.querySelectorAll('.nav-links.open').forEach(nav => nav.classList.remove('open'));
-        document.querySelectorAll('.hamburger[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+        document.querySelectorAll('.hamburger[aria-expanded="true"]').forEach(b => {
+            b.setAttribute('aria-expanded','false');
+            const img = b.querySelector('img');
+            // Check if we're on index or service page based on image src
+            if(img) {
+                if(img.src.includes('../assets')) {
+                    img.src = '../assets/images/hamburger-menu.jpg';
+                } else {
+                    img.src = 'assets/images/hamburger-menu.jpg';
+                }
+            }
+        });
     }
 
     buttons.forEach(btn => {
@@ -15,6 +26,16 @@
             if(!nav) return;
             const isOpen = nav.classList.toggle('open');
             btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            const img = btn.querySelector('img');
+            if(img) {
+                // Check if we're on index or service page based on current src
+                const isIndexPage = !img.src.includes('../assets');
+                if(isIndexPage) {
+                    img.src = isOpen ? 'assets/images/close-button-icon.jpg' : 'assets/images/hamburger-menu.jpg';
+                } else {
+                    img.src = isOpen ? '../assets/images/close-button-icon.jpg' : '../assets/images/hamburger-menu.jpg';
+                }
+            }
         });
 
         // close nav when a link inside is clicked
@@ -67,7 +88,19 @@
                 closeAll();
                 // also close mobile main nav
                 document.querySelectorAll('.nav-links.open').forEach(nav => nav.classList.remove('open'));
-                document.querySelectorAll('.hamburger[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+                document.querySelectorAll('.hamburger[aria-expanded="true"]').forEach(b => {
+                    b.setAttribute('aria-expanded','false');
+                    const img = b.querySelector('img');
+                    if(img) {
+                        // Check path structure
+                        const isIndexPage = !img.src.includes('../assets');
+                        if(isIndexPage) {
+                            img.src = 'assets/images/hamburger-menu.jpg';
+                        } else {
+                            img.src = '../assets/images/hamburger-menu.jpg';
+                        }
+                    }
+                });
             }
         });
     });
