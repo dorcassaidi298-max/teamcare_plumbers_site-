@@ -107,32 +107,119 @@
                 <li>Unblocking and preventative solutions</li>
             </ul>
 
-            <!-- Gallery Section -->
+        <!-- Gallery Section -->
             <h2>Our Plumbing Work</h2>
             <p>View some of our recent plumbing and draining projects.</p>
 
             <div class="gallery-grid" aria-live="polite">
+
                 <figure class="gallery-item">
-                    <img src="../assets/images/sigmund-4CNNH2KEjhc-unsplash.jpg" alt="Professional plumbing installation">
-                    <figcaption>Professional plumbing installation</figcaption>
+                    <img src="../assets/images/twin drain pipes.jpg" alt="Twin drain pipes installation">
                 </figure>
 
                 <figure class="gallery-item">
-                    <img src="../assets/images/sigmund-4CNNH2KEjhc-unsplash.jpg" alt="Plumbing detail">
-                    <figcaption>Quality plumbing workmanship</figcaption>
+                    <img src="../assets/images/outdoor-drainage-intsallation.webp" alt="Outdoor drainage installation">
+                </figure>
+
+                <figure class="gallery-item">
+                    <img src="../assets/images/containter drain pipe.jpg" alt="Container drain pipes">
+                </figure>
+
+                <figure class="gallery-item">
+                    <img src="../assets/images/dark drain pipes.jpg" alt="Dark drain pipes">
+                </figure>
+
+                <figure class="gallery-item">
+                    <img src="../assets/images/incomplete drain pipes.jpg" alt="Incomplete drain pipes installation">
                 </figure>
 
                 <figure class="gallery-item">
                     <img src="../assets/images/azka-rayhansyah-DByY8MbE9OE-unsplash.jpg" alt="Draining work">
-                    <figcaption>Professional draining solutions</figcaption>
                 </figure>
 
-                <figure class="gallery-item">
-                    <img src="../assets/images/imani-vDQ-e3RtaoE-unsplash.jpg" alt="Modern fixtures">
-                    <figcaption>Modern water fixtures and installations</figcaption>
-                </figure>
+        <!-- Contact -->
+        <section id="contact" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Get a Free Quote</h2>
+            <div class="contact-wrap">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>
+                    <strong>Phone:</strong> <a href="tel:+263">+263 77 841 2699</a>
+                </p>
+                <p>
+                    <strong>Email:</strong> <a href=Tawandamandaza4@gmail.com>Tawandamandaza4@gmail.com</a>
+                </p>
+                <p>
+                    <strong>Working Hours:</strong> Mon-Fri 8AM-5PM, Sat 9AM-2PM
+                </p>
+                </div>
+
+        <!--Request Quote Form-->
+                <form class="contact-form" aria-labelledby="contact-heading">
+                    <div class="field">
+                        <label for="name">Your name</label>
+                        <input type="text" id="name" name="name" required aria-describedby="error-name">
+                        <div id="error-name" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" required aria-describedby="error-phone">
+                        <div id="error-phone" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" aria-describedby="error-email">
+                        <div id="error-email" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="region">Region</label>
+                        <select id="region" name="region" aria-describedby="error-region">
+                            <option value="bulawayo">Bulawayo</option>
+                            <option value="harare">Harare</option>
+                            <option value="manicaland">Manicaland</option>
+                            <option value="mashonaland-central">Mashonaland Central</option>
+                            <option value="mashonaland-east">Mashonaland East</option>
+                            <option value="mashonaland-west">Mashonaland West</option>
+                            <option value="masvingo">Masvingo</option>
+                            <option value="matebeland-north">Matebeland North</option>
+                            <option value="matebeland-south">Matebeland South</option>
+                            <option value="midlands">Midlands</option>
+                        </select>
+                        <div id="error-region" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="service">Service</label>
+                        <select id="service" name="service" aria-describedby="error-service">
+                            <option value="plumbing">Plumbing</option>
+                            <option value="tiling">Tiling &amp; Ceilings</option>
+                            <option value="solar">Solar Geysers</option>
+                            <option value="draining">Draining</option>
+                            <option value="jojotanks">JoJo Tanks</option>
+                            <option value="water">Water Systems</option>
+                            <option value="vanities">Vanities &amp; Showers</option>
+                        </select>
+                        <div id="error-service" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="details">Project details</label>
+                        <textarea id="details" name="details" rows="4" aria-describedby="error-details"></textarea>
+                        <div id="error-details" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="hero-cta">Request Quote</button>
+                    </div>
+                    <div id="form-status" aria-live="polite" class="form-status" role="status"></div>
+                </form>
             </div>
-
+        </section>
+        
+            <!-- FAQ -->
             <h2>FAQs</h2>
             <div class="faq-list">
                 <details>
