@@ -2,6 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.teamcareplumbers.co.zw/sitemap.xml
-
-# Disallow admin or private directories if any
-Disallow: /assets/

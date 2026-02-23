@@ -242,3 +242,113 @@
         });
     });
 })();
+// Lightbox for all gallery images
+(function () {
+    function buildLightbox() {
+        if (document.getElementById('tc-lightbox')) return;
+        const lb = document.createElement('div');
+        lb.id = 'tc-lightbox';
+        lb.className = 'lightbox-overlay';
+        lb.setAttribute('role', 'dialog');
+        lb.setAttribute('aria-modal', 'true');
+        lb.setAttribute('aria-label', 'Image viewer');
+        lb.innerHTML = `
+            <button class="lightbox-close" aria-label="Close image viewer">&#10005;</button>
+            <button class="lightbox-prev" aria-label="Previous image">&#8249;</button>
+            <div class="lightbox-inner">
+                <img class="lightbox-img" src="" alt="">
+            </div>
+            <button class="lightbox-next" aria-label="Next image">&#8250;</button>
+            <p class="lightbox-caption"></p>
+        `;
+        document.body.appendChild(lb);
+        return lb;
+    }
+
+    let currentImages = [];
+    let currentIndex = 0;
+
+    function openLightbox(images, index) {
+        currentImages = images;
+        currentIndex = index;
+        showLightboxImage();
+        const lb = document.getElementById('tc-lightbox');
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        lb.querySelector('.lightbox-close').focus();
+    }
+
+    function closeLightbox() {
+        const lb = document.getElementById('tc-lightbox');
+        if (!lb) return;
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function showLightboxImage() {
+        const lb = document.getElementById('tc-lightbox');
+        if (!lb) return;
+        const img = lb.querySelector('.lightbox-img');
+        const cap = lb.querySelector('.lightbox-caption');
+        const data = currentImages[currentIndex];
+        img.src = data.src;
+        img.alt = data.alt || '';
+        cap.textContent = data.caption || '';
+    }
+
+    function navigateLightbox(dir) {
+        currentIndex = (currentIndex + dir + currentImages.length) % currentImages.length;
+        showLightboxImage();
+    }
+
+    function initGalleryLightboxes() {
+        buildLightbox();
+        const lb = document.getElementById('tc-lightbox');
+
+        lb.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+        lb.querySelector('.lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
+        lb.querySelector('.lightbox-next').addEventListener('click', () => navigateLightbox(1));
+
+        // Close on overlay click (but not inner content)
+        lb.addEventListener('click', (e) => {
+            if (e.target === lb) closeLightbox();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lb.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Wire up each gallery grid separately
+        document.querySelectorAll('.gallery-grid').forEach(grid => {
+            const figures = Array.from(grid.querySelectorAll('.gallery-item'));
+            const imageData = figures.map(fig => ({
+                src: fig.querySelector('img')?.src || '',
+                alt: fig.querySelector('img')?.alt || '',
+                caption: fig.querySelector('figcaption')?.textContent || ''
+            }));
+
+            figures.forEach((fig, i) => {
+                fig.setAttribute('tabindex', '0');
+                fig.setAttribute('role', 'button');
+                fig.setAttribute('aria-label', `View: ${imageData[i].caption || imageData[i].alt}`);
+                fig.addEventListener('click', () => openLightbox(imageData, i));
+                fig.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openLightbox(imageData, i);
+                    }
+                });
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGalleryLightboxes);
+    } else {
+        initGalleryLightboxes();
+    }
+})();

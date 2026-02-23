@@ -1052,3 +1052,52 @@ footer {
 .text-center {
     text-align: center;
 }
+/* ── Trust Strip (About section) ── */
+.trust-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+    .trust-strip {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.trust-item {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-top: 4px solid var(--brand-primary);
+    border-radius: var(--radius);
+    padding: 1.25rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: var(--shadow-light);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.trust-item:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+}
+
+.trust-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.trust-item strong {
+    color: var(--brand-primary);
+    font-size: 0.95rem;
+}
+
+.trust-item span:not(.trust-icon) {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    line-height: 1.3;
+}
