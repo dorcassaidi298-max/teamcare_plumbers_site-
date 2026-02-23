@@ -722,6 +722,13 @@ ul li {
     display: block;
 }
 
+figcaption {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-medium);
+    text-align: center;
+}
+
 /* Contact Form */
 .contact-wrap {
     display: grid;
