@@ -129,14 +129,46 @@
         startAutoSlide();
     }
 
+    /* Fix 2: Update arrow disabled state based on current slide */
+    function updateArrows() {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        if (!prevBtn || !nextBtn || !slides.length) return;
+
+        if (slideIndex <= 1) {
+            prevBtn.classList.add('disabled');
+            prevBtn.setAttribute('aria-disabled', 'true');
+            prevBtn.style.pointerEvents = 'none';
+            prevBtn.style.opacity = '0.35';
+        } else {
+            prevBtn.classList.remove('disabled');
+            prevBtn.setAttribute('aria-disabled', 'false');
+            prevBtn.style.pointerEvents = '';
+            prevBtn.style.opacity = '';
+        }
+
+        if (slideIndex >= slides.length) {
+            nextBtn.classList.add('disabled');
+            nextBtn.setAttribute('aria-disabled', 'true');
+            nextBtn.style.pointerEvents = 'none';
+            nextBtn.style.opacity = '0.35';
+        } else {
+            nextBtn.classList.remove('disabled');
+            nextBtn.setAttribute('aria-disabled', 'false');
+            nextBtn.style.pointerEvents = '';
+            nextBtn.style.opacity = '';
+        }
+    }
+
     function showSlide(n) {
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
         
         if(!slides.length) return;
 
-        if (n > slides.length) { slideIndex = 1; }
-        if (n < 1) { slideIndex = slides.length; }
+        if (n > slides.length) { slideIndex = slides.length; }
+        if (n < 1) { slideIndex = 1; }
 
         // Hide all slides
         slides.forEach(slide => {
@@ -157,11 +189,14 @@
         if(dots[slideIndex - 1]) {
             dots[slideIndex - 1].classList.add('active');
         }
+
+        updateArrows();
     }
 
     function changeSlide(n) {
         clearTimeout(slideTimer);
-        showSlide(slideIndex += n);
+        slideIndex += n;
+        showSlide(slideIndex);
         startAutoSlide();
     }
 
@@ -172,10 +207,15 @@
     }
 
     function startAutoSlide() {
+        clearTimeout(slideTimer);
         slideTimer = setTimeout(() => {
-            slideIndex++;
-            showSlide(slideIndex);
-            startAutoSlide();
+            const slides = document.querySelectorAll('.slide');
+            // Only auto-advance if not at last slide
+            if (slideIndex < slides.length) {
+                slideIndex++;
+                showSlide(slideIndex);
+                startAutoSlide();
+            }
         }, 5000); // Change slide every 5 seconds
     }
 
