@@ -288,18 +288,20 @@
         if (document.getElementById('tc-lightbox')) return;
         const lb = document.createElement('div');
         lb.id = 'tc-lightbox';
-        lb.className = 'lightbox-overlay';
+        lb.className = 'lightbox';
         lb.setAttribute('role', 'dialog');
         lb.setAttribute('aria-modal', 'true');
         lb.setAttribute('aria-label', 'Image viewer');
         lb.innerHTML = `
-            <button class="lightbox-close" aria-label="Close image viewer">&#10005;</button>
-            <button class="lightbox-prev" aria-label="Previous image">&#8249;</button>
-            <div class="lightbox-inner">
-                <img class="lightbox-img" src="" alt="">
+            <div class="lightbox-content">
+                <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+                <div class="lightbox-image-wrapper">
+                    <button class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</button>
+                    <img class="lightbox-image" src="" alt="">
+                    <button class="lightbox-nav lightbox-next" aria-label="Next image">&#10095;</button>
+                </div>
+                <p class="lightbox-caption"></p>
             </div>
-            <button class="lightbox-next" aria-label="Next image">&#8250;</button>
-            <p class="lightbox-caption"></p>
         `;
         document.body.appendChild(lb);
         return lb;
@@ -313,7 +315,7 @@
         currentIndex = index;
         showLightboxImage();
         const lb = document.getElementById('tc-lightbox');
-        lb.classList.add('open');
+        lb.classList.add('active');
         document.body.style.overflow = 'hidden';
         lb.querySelector('.lightbox-close').focus();
     }
@@ -321,23 +323,33 @@
     function closeLightbox() {
         const lb = document.getElementById('tc-lightbox');
         if (!lb) return;
-        lb.classList.remove('open');
+        lb.classList.remove('active');
         document.body.style.overflow = '';
     }
 
     function showLightboxImage() {
         const lb = document.getElementById('tc-lightbox');
         if (!lb) return;
-        const img = lb.querySelector('.lightbox-img');
+        const img = lb.querySelector('.lightbox-image');
         const cap = lb.querySelector('.lightbox-caption');
+        const prevBtn = lb.querySelector('.lightbox-prev');
+        const nextBtn = lb.querySelector('.lightbox-next');
         const data = currentImages[currentIndex];
         img.src = data.src;
         img.alt = data.alt || '';
         cap.textContent = data.caption || '';
+        
+        // Disable/enable buttons based on position
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === currentImages.length - 1;
     }
 
     function navigateLightbox(dir) {
-        currentIndex = (currentIndex + dir + currentImages.length) % currentImages.length;
+        if (dir > 0 && currentIndex < currentImages.length - 1) {
+            currentIndex++;
+        } else if (dir < 0 && currentIndex > 0) {
+            currentIndex--;
+        }
         showLightboxImage();
     }
 
@@ -356,7 +368,7 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (!lb.classList.contains('open')) return;
+            if (!lb.classList.contains('active')) return;
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') navigateLightbox(-1);
             if (e.key === 'ArrowRight') navigateLightbox(1);
