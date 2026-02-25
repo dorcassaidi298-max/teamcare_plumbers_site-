@@ -243,43 +243,15 @@
     }
 })();
 
-// Gallery filter functionality
+// Gallery initialization - no filtering, display all items
 (function() {
-    const tabButtons = document.querySelectorAll('.tab-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
-
-    if(!tabButtons.length || !galleryItems.length) return;
-
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-tab');
-
-            // Update active button
-            tabButtons.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-
-            // Filter gallery items
-            galleryItems.forEach(item => {
-                const service = item.getAttribute('data-service');
-                if (filter === 'all' || service === filter) {
-                    item.style.display = 'block';
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'scale(1)';
-                    }, 10);
-                } else {
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        item.style.display = 'none';
-                    }, 300);
-                }
-            });
-        });
+    if(!galleryItems.length) return;
+    
+    // Ensure all items are visible on load
+    galleryItems.forEach(item => {
+        item.style.display = 'block';
+        item.style.opacity = '1';
     });
 })();
 // Lightbox for all gallery images
