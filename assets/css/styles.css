@@ -423,20 +423,33 @@ header {
 .slideshow-container {
     position: relative;
     width: 100%;
-    height: 400px;
+    /* Use aspect ratio for responsive sizing */
+    aspect-ratio: 16 / 9;
+    max-height: 70vh;
     overflow: hidden;
     background: var(--brand-dark);
 }
 
-@media (min-width: 768px) {
+/* Mobile: taller aspect ratio */
+@media (max-width: 767px) {
     .slideshow-container {
-        height: 500px;
+        aspect-ratio: 4 / 5;
+        max-height: none;
     }
 }
 
+/* Tablet */
+@media (min-width: 768px) {
+    .slideshow-container {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+/* Desktop and larger */
 @media (min-width: 1024px) {
     .slideshow-container {
-        height: 600px;
+        aspect-ratio: 16 / 9;
+        max-height: 90vh;
     }
 }
 
@@ -455,8 +468,13 @@ header {
 .slide img {
     width: 100%;
     height: 100%;
+    /* Use contain for no distortion, cover for full fill without gaps */
     object-fit: cover;
     object-position: center;
+    /* Prevent blur on large screens */
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    display: block;
 }
 
 .slide-caption {
@@ -466,36 +484,39 @@ header {
     right: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
     color: white;
-    padding: 3rem 2rem 2rem;
+    padding: 2rem 1.5rem 1.5rem;
     text-align: left;
 }
 
 .slide-caption h1 {
     color: white;
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 5vw, 2.5rem);
     margin-bottom: 0.5rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .slide-caption p {
     color: rgba(255,255,255,0.95);
-    font-size: 1rem;
+    font-size: clamp(0.875rem, 3vw, 1.2rem);
     margin: 0;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+@media (min-width: 640px) {
+    .slide-caption {
+        padding: 3rem 2rem 2rem;
+    }
 }
 
 @media (min-width: 768px) {
     .slide-caption {
         padding: 4rem 4rem 3rem;
     }
-    
-    .slide-caption h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-    
-    .slide-caption p {
-        font-size: 1.2rem;
+}
+
+@media (min-width: 1024px) {
+    .slide-caption {
+        padding: 5rem 5rem 4rem;
     }
 }
 
